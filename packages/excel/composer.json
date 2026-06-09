@@ -1,0 +1,13 @@
+{
+    "name": "jotaelesalinas/php-data-streams-excel",
+    "type": "library",
+    "description": "Minimal xlsx streaming readers for PHP data streams.",
+    "require": {
+        "php": "^8.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "JLSalinas\\DataStreams\\Excel\\": ""
+        }
+    }
+}

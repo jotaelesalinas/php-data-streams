@@ -1,0 +1,13 @@
+{
+    "name": "jotaelesalinas/php-data-streams-http",
+    "type": "library",
+    "description": "Streaming HTTP readers for PHP data streams.",
+    "require": {
+        "php": "^8.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "JLSalinas\\DataStreams\\Http\\": ""
+        }
+    }
+}
