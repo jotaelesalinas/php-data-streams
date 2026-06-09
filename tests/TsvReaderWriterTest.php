@@ -16,3 +16,12 @@ it('supports named constructors for tsv', function (): void {
         ['name' => 'Ada', 'age' => '37'],
     ]);
 });
+
+it('fails for tsv when a later row introduces new keys', function (): void {
+    $file = tempnam(sys_get_temp_dir(), 'tsv');
+    $writer = CsvWriter::fromTsv($file, false);
+
+    $writer->write(['name' => 'Ada', 'age' => '37']);
+
+    expect(fn (): bool => $writer->write(['name' => 'Bob', 'age' => '41', 'city' => 'Sevilla']))->toThrow(\InvalidArgumentException::class);
+});

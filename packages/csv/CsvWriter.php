@@ -10,6 +10,8 @@ final class CsvWriter implements Writer
 {
     private $handle;
     private bool $headerWritten = false;
+    /** @var array<int, string> */
+    private array $headerKeys = [];
 
     public function __construct(
         private readonly string $filename,
@@ -31,17 +33,36 @@ final class CsvWriter implements Writer
             throw new \InvalidArgumentException('CSV writer expects associative arrays.');
         }
 
+        $recordKeys = array_keys($record);
+        if ($this->headerKeys !== []) {
+            $extraKeys = array_diff($recordKeys, $this->headerKeys);
+
+            if ($extraKeys !== []) {
+                throw new \InvalidArgumentException('CSV writer does not accept new keys after the header has been written.');
+            }
+
+            $row = [];
+            foreach ($this->headerKeys as $key) {
+                $row[] = array_key_exists($key, $record) ? $record[$key] : '';
+            }
+        }
+
         $handle = $this->handle ??= fopen($this->filename, 'wb');
         if ($handle === false) {
             throw new \RuntimeException('Could not open output file: ' . $this->filename);
         }
 
         if ($this->withHeaders && !$this->headerWritten) {
-            fputcsv($handle, array_keys($record), $this->separator, $this->enclosure, $this->escape);
+            $this->headerKeys = $recordKeys;
+            fputcsv($handle, $this->headerKeys, $this->separator, $this->enclosure, $this->escape);
             $this->headerWritten = true;
         }
 
-        fputcsv($handle, array_values($record), $this->separator, $this->enclosure, $this->escape);
+        if ($this->headerKeys === []) {
+            $this->headerKeys = $recordKeys;
+        }
+
+        fputcsv($handle, $this->headerKeys === $recordKeys ? array_values($record) : $row, $this->separator, $this->enclosure, $this->escape);
     }
 
     public function close(): void
