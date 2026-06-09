@@ -1,5 +1,10 @@
 # php-data-streams
 
+[!IMPORTANT]
+This is a breaking v2 release and is not compatible with the old
+`jotaelesalinas/php-rwgen` package.
+The package name, namespace, and public API have changed.
+
 [![License][ico-license]][link-license]
 [![CI][ico-ci]][link-ci]
 
