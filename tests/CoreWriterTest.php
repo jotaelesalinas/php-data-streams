@@ -2,21 +2,14 @@
 
 declare(strict_types=1);
 
-namespace JLSalinas\DataStreams\Tests;
-
 use JLSalinas\DataStreams\Core\ConsoleWriter;
-use PHPUnit\Framework\TestCase;
 
-final class CoreWriterTest extends TestCase
-{
-    public function testFormatsArraysAsJson(): void
-    {
-        $stream = fopen('php://temp', 'wb+');
-        $writer = new ConsoleWriter($stream);
+it('formats arrays as json', function (): void {
+    $stream = fopen('php://temp', 'wb+');
+    $writer = new ConsoleWriter($stream);
 
-        $writer->write(['name' => 'Ada']);
+    $writer->write(['name' => 'Ada']);
 
-        rewind($stream);
-        self::assertSame('{"name":"Ada"}' . PHP_EOL, stream_get_contents($stream));
-    }
-}
+    rewind($stream);
+    expect(stream_get_contents($stream))->toBe('{"name":"Ada"}' . PHP_EOL);
+});

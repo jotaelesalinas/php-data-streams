@@ -40,7 +40,7 @@
         }
     },
     "scripts": {
-        "test": "phpunit",
+        "test": "pest",
         "analyse": "phpstan analyse --no-progress",
         "format": "php-cs-fixer fix --config=.php-cs-fixer.php --dry-run --diff"
     },
