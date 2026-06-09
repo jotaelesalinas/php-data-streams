@@ -14,6 +14,18 @@ It is designed for data pipelines, import/export jobs, CLI tools and integration
 - Compose simple readers and writers around generators and iterables.
 - Reuse a shared contract across multiple formats.
 
+## How This Repository Is Organized
+
+This project is a monorepo split into several smaller packages.
+
+That means the repository contains multiple packages in one place, but you do not need to install all of them. Install only the package or packages you actually need.
+
+For example:
+
+- If you only work with CSV files, install the CSV package.
+- If you only need JSON Lines, install the JSON package.
+- If you want the shared reader and writer interfaces for your own code, install the core package.
+
 ## Packages
 
 - [`core`](packages/core/README.md) for the shared `Reader` and `Writer` contracts.
@@ -39,16 +51,61 @@ foreach ($reader as $customer) {
 
 ## Installation
 
-Install the package you need via Composer. For example, to work with CSV streams:
+Install the package you need via Composer. For example, to work with CSV files:
 
 ```bash
 composer require jotaelesalinas/php-data-streams-csv
 ```
 
-If you want to use the shared contracts directly:
+If you want to work with JSON Lines:
+
+```bash
+composer require jotaelesalinas/php-data-streams-json
+```
+
+If you want to build your own reader or writer and only need the shared interfaces:
 
 ```bash
 composer require jotaelesalinas/php-data-streams-core
+```
+
+You can also install more than one package if your project needs them.
+
+## Example Usage
+
+### CSV reader
+
+```php
+use JLSalinas\DataStreams\Csv\CsvReader;
+
+$reader = new CsvReader(__DIR__ . '/customers.csv');
+
+foreach ($reader as $customer) {
+    echo $customer['name'] . PHP_EOL;
+}
+```
+
+### CSV writer
+
+```php
+use JLSalinas\DataStreams\Csv\CsvWriter;
+
+$writer = new CsvWriter(__DIR__ . '/export.csv');
+$writer->write(['name' => 'Ada', 'email' => 'ada@example.com']);
+$writer->write(['name' => 'Grace', 'email' => 'grace@example.com']);
+$writer->close();
+```
+
+### JSON reader
+
+```php
+use JLSalinas\DataStreams\Json\JsonReader;
+
+$reader = new JsonReader(__DIR__ . '/events.ndjson');
+
+foreach ($reader as $event) {
+    var_dump($event);
+}
 ```
 
 ## Typical Use Cases
@@ -62,7 +119,7 @@ composer require jotaelesalinas/php-data-streams-core
 
 ## Project Status
 
-This repository is the monorepo home for independently publishable packages. The codebase has been renamed and reorganized around the `JLSalinas\DataStreams` namespace, and the README files in each package document the current runtime behavior.
+This repository is the home of independently publishable packages. The codebase has been renamed and reorganized around the `JLSalinas\DataStreams` namespace, and each package README documents its own behavior and usage.
 
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-ci]: https://img.shields.io/github/actions/workflow/status/jotaelesalinas/php-data-streams/ci.yml?branch=master&style=flat-square
