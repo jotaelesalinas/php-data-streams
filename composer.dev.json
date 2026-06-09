@@ -1,0 +1,26 @@
+{
+    "name": "jotaelesalinas/php-data-streams-dev",
+    "type": "project",
+    "require": {
+        "jotaelesalinas/php-data-streams": "*@dev"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "packages/core"
+        },
+        {
+            "type": "path",
+            "url": "packages/csv"
+        },
+        {
+            "type": "path",
+            "url": "packages/json"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "JLSalinas\\DataStreams\\": "packages/"
+        }
+    }
+}
