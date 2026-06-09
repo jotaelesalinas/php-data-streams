@@ -1,0 +1,13 @@
+{
+    "name": "jotaelesalinas/php-data-streams-core",
+    "type": "library",
+    "description": "Core reader and writer contracts for data streams in PHP.",
+    "require": {
+        "php": "^8.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "JLSalinas\\DataStreams\\Core\\": ""
+        }
+    }
+}
