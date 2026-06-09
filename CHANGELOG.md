@@ -12,4 +12,6 @@
 
 - `core` reader and writer contracts.
 - CSV and JSON Lines implementations under the new namespace.
+- XML and KML streaming packages.
+- PDO, HTTP, and minimal XLSX packages.
 - Initial PHPUnit coverage for the new stream contracts.

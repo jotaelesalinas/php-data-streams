@@ -20,6 +20,11 @@ final class CsvWriter implements Writer
     ) {
     }
 
+    public static function fromTsv(string $filename, bool $withHeaders = true): self
+    {
+        return new self($filename, $withHeaders, "\t");
+    }
+
     public function write(mixed $record): void
     {
         if (!is_array($record)) {

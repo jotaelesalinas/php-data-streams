@@ -17,6 +17,11 @@ final class CsvReader implements Reader
     ) {
     }
 
+    public static function fromTsv(string $filename, bool $withHeaders = true): self
+    {
+        return new self($filename, $withHeaders, "\t");
+    }
+
     public function getIterator(): \Traversable
     {
         $handle = fopen($this->filename, 'rb');

@@ -12,6 +12,9 @@ This repository is the monorepo home for a family of stream-oriented packages:
 - `json` for NDJSON / JSON Lines.
 - `xml` for lazy XML node streaming.
 - `kml` for KML output composed on top of XML.
+- `pdo` for row-by-row database cursors.
+- `http` for line and page-oriented HTTP streams.
+- `excel` for minimal XLSX sheet readers.
 
 ## Why this exists
 
@@ -31,7 +34,7 @@ foreach (new CsvReader(__DIR__ . '/customers.csv') as $customer) {
 
 ## Current status
 
-The repo has been renamed and modernized in place. The next steps are to split the monorepo into independently publishable subpackages and continue tightening the contracts and tests.
+The repo has been renamed and modernized in place. The monorepo split is now present in-tree with independently publishable subpackages, and the remaining work is mainly external publication plus any future hardening you want to do per package.
 
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-ci]: https://img.shields.io/github/actions/workflow/status/jotaelesalinas/php-data-streams/ci.yml?branch=master&style=flat-square
