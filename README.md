@@ -10,6 +10,8 @@ This repository is the monorepo home for a family of stream-oriented packages:
 - `core` for shared reader and writer contracts.
 - `csv` for CSV and TSV streaming.
 - `json` for NDJSON / JSON Lines.
+- `xml` for lazy XML node streaming.
+- `kml` for KML output composed on top of XML.
 
 ## Why this exists
 

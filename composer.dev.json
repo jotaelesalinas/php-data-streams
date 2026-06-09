@@ -16,6 +16,14 @@
         {
             "type": "path",
             "url": "packages/json"
+        },
+        {
+            "type": "path",
+            "url": "packages/xml"
+        },
+        {
+            "type": "path",
+            "url": "packages/kml"
         }
     ],
     "autoload": {
