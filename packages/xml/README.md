@@ -4,6 +4,11 @@ Lazy XML readers and streaming writers for `php-data-streams`.
 
 This package is intended for XML feeds where you want to process one record element at a time without loading the whole document.
 
+## Which Class Should I Use?
+
+- `XmlReader` to stream matching XML elements from a file into PHP arrays.
+- `XmlWriter` to write records back into an XML document one at a time.
+
 ## Features
 
 - Stream XML records from a large file with `XMLReader`.

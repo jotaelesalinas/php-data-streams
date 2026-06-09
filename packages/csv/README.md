@@ -4,6 +4,13 @@ Streaming CSV and TSV adapters for `php-data-streams`.
 
 `csv` gives you a simple file-based reader and writer for delimited records. It is a good fit for imports, exports and interchange files where you want predictable memory usage and plain PHP arrays.
 
+## Which Class Should I Use?
+
+- `CsvReader` to read comma-separated files.
+- `CsvWriter` to write comma-separated files.
+- `CsvReader::fromTsv()` to read tab-separated files.
+- `CsvWriter::fromTsv()` to write tab-separated files.
+
 ## Features
 
 - Read CSV files row by row.
@@ -40,6 +47,12 @@ use JLSalinas\DataStreams\Csv\CsvWriter;
 $reader = CsvReader::fromTsv(__DIR__ . '/customers.tsv');
 $writer = CsvWriter::fromTsv(__DIR__ . '/export.tsv');
 ```
+
+## Reader and Writer Behavior
+
+- `CsvReader` can treat the first row as headers and return associative arrays.
+- `CsvWriter` writes headers automatically when `withHeaders` is enabled.
+- The writer keeps the column order stable after the first record.
 
 ## Notes
 

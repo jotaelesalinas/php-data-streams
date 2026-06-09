@@ -4,6 +4,11 @@ Lazy HTTP-oriented readers for line and page streaming.
 
 `http` provides tiny adapters for turning HTTP-derived iterables into flat record streams.
 
+## Which Class Should I Use?
+
+- `HttpLinesReader` when you have a list of response lines and want to skip blanks.
+- `HttpPagesReader` when your API returns pages of results and you want one continuous stream.
+
 ## Features
 
 - Normalize iterables of lines by trimming whitespace and skipping empties.
