@@ -122,46 +122,44 @@ foreach ($reader as $event) {
 - KML generation from geospatial records.
 - Streaming database results and HTTP responses.
 
-## Actualizando desde v1.x
+## Updating from v1.x
 
-Si vienes de `jotaelesalinas/php-rwgen`, revisa estos puntos antes de mover
-tu código a esta versión:
+If you are coming from `jotaelesalinas/php-rwgen`, review these changes before
+moving your code to this release:
 
-- Cambia la dependencia en Composer al paquete concreto que realmente usas.
-  Por ejemplo:
+- Switch Composer to the package you actually use. For example:
 
   ```bash
   composer remove jotaelesalinas/php-rwgen
   composer require jotaelesalinas/php-data-streams-csv
   ```
 
-  Si usabas varias capacidades, instala varios subpaquetes.
+  If your project uses multiple formats, install the matching subpackages.
 
-- Actualiza los `use` al nuevo namespace. Por ejemplo:
+- Update the namespace imports. For example:
 
   ```php
-  use TuNamespaceAntiguo\CsvReader;
+  use JLSalinas\RWGen\CsvReader;
   ```
 
-  pasa a:
+  becomes:
 
   ```php
   use JLSalinas\DataStreams\Csv\CsvReader;
   ```
 
-- Si antes creabas clases desde el paquete monolítico, ahora debes apuntar al
-  subpaquete correcto. Por ejemplo, lo que antes sería una lectura CSV genérica
-  ahora vive en `packages/csv`, mientras que las interfaces compartidas viven
-  en `packages/core`.
+- If you previously relied on the monolithic package, move each reader or
+  writer to the matching subpackage. For example, CSV streaming now lives in
+  `packages/csv`, while the shared contracts live in `packages/core`.
 
-- Revisa los nombres de clases y constructores cuando actualices. Si tenías
-  algo como `new Reader(...)` o `new Writer(...)`, comprueba en los README de
-  cada subpaquete si esa responsabilidad ahora se llama `CsvReader`,
-  `JsonReader`, `CsvWriter`, etc.
+- Recheck class names and constructors when you migrate. If you used
+  generic-looking classes such as `Reader` or `Writer`, they may now be
+  specific implementations like `CsvReader`, `JsonReader`, `CsvWriter`, or
+  `JsonLinesWriter`.
 
-- Si tu código dependía de una sola instalación para todo, vuelve a validar
-  tus imports y tu `composer.json` usando la sección [Packages](#packages) como
-  mapa de migración.
+- If your code depended on a single installation for everything, verify your
+  imports and `composer.json` against the [Packages](#packages) section and the
+  README for each subpackage.
 
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-ci]: https://img.shields.io/github/actions/workflow/status/jotaelesalinas/php-data-streams/ci.yml?branch=master&style=flat-square
