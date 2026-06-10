@@ -5,6 +5,47 @@ This is a breaking v2 release and is not compatible with the old
 `jotaelesalinas/php-rwgen` package.
 The package name, namespace, and public API have changed.
 
+## Actualizando desde v1.x
+
+Si vienes de `jotaelesalinas/php-rwgen`, revisa estos puntos antes de mover
+tu código a esta versión:
+
+- Cambia la dependencia en Composer al paquete concreto que realmente usas.
+  Por ejemplo:
+
+  ```bash
+  composer remove jotaelesalinas/php-rwgen
+  composer require jotaelesalinas/php-data-streams-csv
+  ```
+
+  Si usabas varias capacidades, instala varios subpaquetes.
+
+- Actualiza los `use` al nuevo namespace. Por ejemplo:
+
+  ```php
+  use TuNamespaceAntiguo\CsvReader;
+  ```
+
+  pasa a:
+
+  ```php
+  use JLSalinas\DataStreams\Csv\CsvReader;
+  ```
+
+- Si antes creabas clases desde el paquete monolítico, ahora debes apuntar al
+  subpaquete correcto. Por ejemplo, lo que antes sería una lectura CSV genérica
+  ahora vive en `packages/csv`, mientras que las interfaces compartidas viven
+  en `packages/core`.
+
+- Revisa los nombres de clases y constructores cuando actualices. Si tenías
+  algo como `new Reader(...)` o `new Writer(...)`, comprueba en los README de
+  cada subpaquete si esa responsabilidad ahora se llama `CsvReader`,
+  `JsonReader`, `CsvWriter`, etc.
+
+- Si tu código dependía de una sola instalación para todo, vuelve a validar
+  tus imports y tu `composer.json` usando la sección [Packages](#packages) como
+  mapa de migración.
+
 [![License][ico-license]][link-license]
 [![CI][ico-ci]][link-ci]
 
@@ -121,10 +162,6 @@ foreach ($reader as $event) {
 - XLSX sheet reading in long-running jobs.
 - KML generation from geospatial records.
 - Streaming database results and HTTP responses.
-
-## Project Status
-
-This repository is the home of independently publishable packages. The codebase has been renamed and reorganized around the `JLSalinas\DataStreams` namespace, and each package README documents its own behavior and usage.
 
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-ci]: https://img.shields.io/github/actions/workflow/status/jotaelesalinas/php-data-streams/ci.yml?branch=master&style=flat-square
