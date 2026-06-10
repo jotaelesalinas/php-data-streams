@@ -16,11 +16,14 @@ The project follows Keep a Changelog and SemVer.
 
 ### Added
 
-- `core` reader and writer contracts added.
-- CSV and JSON Lines implementations added under the new namespace.
-- XML and KML streaming packages added.
-- PDO, HTTP, and XLSX-oriented packages added.
-- Initial Pest coverage added for the stream contracts.
+- `JLSalinas\DataStreams\Core\Reader` and `Writer` added as the common contracts for all packages.
+- `Csv\CsvReader::getIterator()` and `Csv\CsvWriter::write()` added under the new namespace for streaming CSV and TSV input/output.
+- `Json\JsonReader::getIterator()` added to autodetect JSON Lines, top-level arrays, and top-level objects from the first non-whitespace byte.
+- `Json\JsonIncrementalParser::readArray()` and `readObject()` added to stream nested JSON arrays and objects without loading the full file into memory.
+- `Xml\XmlReader::getIterator()` and `Xml\XmlWriter::write()` added for record-oriented XML streaming.
+- `Kml\KmlWriter::write()` added as a KML writer built on top of `Xml\XmlWriter`.
+- `Pdo\PdoReader::getIterator()`, `Http\HttpLinesReader::getIterator()`, `Http\HttpPagesReader::getIterator()`, `Excel\XlsxReader::getIterator()` and `Excel\XlsxSheetLister::listSheets()` added for PDO, HTTP, and XLSX sources.
+- Pest coverage added for CSV, JSON, XML, KML, HTTP, PDO, XLSX, and large-file memory behavior.
 
 ## v0.5.1
 
@@ -32,42 +35,47 @@ The project follows Keep a Changelog and SemVer.
 
 ### Changed
 
-- KML writer output refined.
+- `src/Writers/Kml.php` updated the generated KML output used by the demo dataset and refreshed the bundled demo output file.
 
 ## v0.4.4
 
+### Fixed
+
+- `GeneratorAggregateHack::send()` now stores the active generator in an instance property instead of a static local variable, fixing cross-instance state leakage when multiple writer instances were used in the same process.
+
 ### Changed
 
-- HTML table writer and generator handling fixed.
+- `src/Writers/HtmlTable.php` markup handling updated together with the generator state fix.
 
 ## v0.4.3
 
 ### Changed
 
-- KML writer behavior and writer classes cleaned up.
+- `src/Writers/Kml.php` updated its output handling and the writer classes were cleaned up accordingly.
 
 ## v0.4.2
 
-### Changed
+### Fixed
 
-- CSV and KML writer fixes applied.
-- Generator-hack cleanup applied.
+- `src/Writers/Csv.php` and `src/Writers/Kml.php` received correctness fixes in their output path.
+- `src/GeneratorAggregateHack.php` cleanup reduced generator lifecycle issues in writer implementations.
 
 ## v0.4.1
 
 ### Changed
 
-- Console writer formatting improved.
+- `src/Writers/Console.php` added configurable formatting output so console writes can be rendered with different serializers.
 
 ## v0.4
 
 ### Added
 
-- Separate console writers for JSON, pretty JSON, and var dump output added.
+- `src/Writers/ConsoleJson.php`, `ConsoleJsonPretty.php`, and `ConsoleVarDump.php` added as dedicated console writer variants.
 
 ### Changed
 
-- KML writer and writer inheritance model refined.
+- `src/Writers/Console.php` stopped carrying all formatting modes internally, moving them into dedicated writer classes.
+- `src/Writers/Kml.php` and the writer inheritance model were updated alongside the console writer split.
 
 ## v0.3.1
 
@@ -79,11 +87,12 @@ The project follows Keep a Changelog and SemVer.
 
 ### Added
 
-- Support for `league/csv` added.
+- `league/csv` support added in the package dependencies.
 
 ### Changed
 
-- Writer and generator handling updated for the CSV dependency.
+- `src/Readers/Csv.php` switched to `league/csv` for CSV parsing.
+- `src/Writers/Kml.php` and the writer stack were updated alongside the CSV reader change.
 
 ## v0.2.5
 
@@ -119,18 +128,18 @@ The project follows Keep a Changelog and SemVer.
 
 ### Added
 
-- JSON Lines support added.
-- Relaunch documentation for the package layout added.
+- `src/Writers/ConsoleJson.php`, `ConsoleJsonPretty.php`, and `ConsoleVarDump.php` added to write console output in JSON, pretty JSON, and `var_dump` formats.
+- README expanded with the new console output variants and writer usage.
 
 ### Changed
 
-- Package layout updated for the monorepo split.
+- `src/Writers/Console.php` no longer multiplexes JSON, pretty JSON, and `var_dump` formatting in a single class.
 
 ## v0.1.1
 
 ### Fixed
 
-- CSV reader and writer edge cases fixed.
+- `src/Readers/Csv.php::getIterator()` fixed empty-input handling so reading an empty CSV file no longer fails.
 
 ## v0.1
 
